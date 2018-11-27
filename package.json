@@ -1,0 +1,23 @@
+{
+  "name": "scraper",
+  "version": "1.0.0",
+  "description": "web scraping",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/yeeeeyaaaa/scraper.git"
+  },
+  "keywords": [
+    "web",
+    "scraper"
+  ],
+  "author": "Yeya",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/yeeeeyaaaa/scraper/issues"
+  },
+  "homepage": "https://github.com/yeeeeyaaaa/scraper#readme"
+}
