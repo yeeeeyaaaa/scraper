@@ -19,5 +19,16 @@
   "bugs": {
     "url": "https://github.com/yeeeeyaaaa/scraper/issues"
   },
-  "homepage": "https://github.com/yeeeeyaaaa/scraper#readme"
+  "homepage": "https://github.com/yeeeeyaaaa/scraper#readme",
+  "dependencies": {
+    "cheerio": "^1.0.0-rc.2",
+    "express": "^4.16.4",
+    "nightmare": "^3.0.1",
+    "nodemon": "^1.18.7",
+    "puppeteer": "^1.10.0",
+    "request-promise": "^4.2.2"
+  },
+  "devDependencies": {
+    "nodemon": "^1.18.7"
+  }
 }
