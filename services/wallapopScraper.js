@@ -8,7 +8,7 @@ exports.wallapopScraper = function(options, cb) {
   //LocationMap__input text España, Barcelona
   //LocationMap__submit click
   new Nightmare({ show: true })
-    .viewport(600, 1024)
+    .viewport(1024, 800)
     .goto(options.url)
     .click('.qc-cmp-button')
     .wait(1000)
