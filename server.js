@@ -4,9 +4,12 @@ var fs = require('fs');
 var request = require('request');
 var cheerio = require('cheerio');
 const wallapopScraperService = require('./services/wallapopScraper');
+const sendMail = require('./services/mailService');
 
 var app = express();
 const port = 8081;
+
+var wallapopResults;
 
 // here you can see how are making routes in Node.js + Express. The first parameter - the route,
 // the second is a callback function, which have two default parameters - request and response.
@@ -30,11 +33,35 @@ app.get('/scrape/users', function(req, res) {
   });
 });
 app.get('/scrape/wallapop', function(req, res) {
-  url =
-    'https://es.wallapop.com/search?bodyTypeIds=van&dist=400&publishDate=any&professional=false&catIds=100&maxPrice=8000&maxMileage=250000&minRegistrationDate=2008&minSeats=6&markAsCarsIds=urgentItems';
+  if (wallapopResults === undefined)
+    url =
+      'https://es.wallapop.com/search?bodyTypeIds=van&dist=400&publishDate=any&professional=false&catIds=100&maxPrice=8000&maxMileage=250000&minRegistrationDate=2008&minSeats=6';
+  else
+    url =
+      'https://es.wallapop.com/search?bodyTypeIds=van&dist=400&publishDate=24&professional=false&catIds=100&maxPrice=8000&maxMileage=250000&minRegistrationDate=2008&minSeats=6';
+
   options = { url };
-  var scraperText = wallapopScraperService.wallapopScraper(options);
-  res.send('Check your console!');
+  wallapopScraperService.wallapopScraper(options, function(results) {
+    // TODO stuf with the results
+
+    if (wallapopResults === undefined) wallapopResults = results;
+    else {
+      if (JSON.stringify(wallapopResults) != JSON.stringify(results)) {
+        wallapopResults.every(elem => results.indexOf(elem) > -1);
+        console.log('diferents');
+      }
+    }
+    fs.writeFile('wallapopResults.json', results, function(err) {
+      //   sendMail.enviarMail(results, function(err) {
+      //     if (err) {
+      //       console.log('Error ' + err);
+      //     }
+      //   });
+      console.log('File successfully written!');
+    });
+    res.status(200).json(results);
+  });
+  //res.send('Check your console!');
 });
 app.listen(port, function() {
   console.log('Server is running on ' + port + ' port');
